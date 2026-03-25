@@ -264,6 +264,27 @@
   - 保持良好的对比度和可读性
   - 平滑的主题切换动画
 
+### 💬 名言警句
+
+- **每日灵感**
+  - 首页展示精选名言警句，提供持续的动力和启发
+  - 支持名言的分类和收藏
+  - AI 辅助生成与目标相关的激励语句
+
+### 🔧 维护模式
+
+- **系统维护**
+  - 管理员可一键开启维护模式
+  - 维护模式下用户看到友好的维护提示页面
+  - 支持自定义维护公告内容
+
+### 🔔 Toast 通知系统
+
+- **即时反馈**
+  - 操作成功/失败的即时视觉反馈
+  - 支持多种通知类型（成功、错误、警告、信息）
+  - 自动消失，不打断用户操作流程
+
 ---
 
 ## 🛠 技术栈
@@ -288,7 +309,7 @@
 - **定时任务**: GitHub Actions + Vercel Functions
 
 ### AI 集成
-- **AI 模型**: DeepSeek API
+- **AI 模型**: Qwen-3.5-plus（通过 DeepSeek 平台接入）
 - **应用场景**: 目标可行性分析、任务拆解、计划生成
 
 ---
@@ -298,8 +319,8 @@
 ### 1. 克隆项目
 
 ```bash
-git clone https://github.com/yourusername/xingyufancheng.git
-cd xingyufancheng
+git clone https://github.com/WYHEF/long-term-goals-public.git
+cd long-term-goals-public
 ```
 
 ### 2. 安装依赖
@@ -317,7 +338,7 @@ npm install
 VITE_SUPABASE_URL=你的Supabase项目URL
 VITE_SUPABASE_ANON_KEY=你的Supabase匿名密钥
 
-# DeepSeek API 配置
+# AI API 配置（当前使用 Qwen-3.5-plus 模型）
 VITE_DEEPSEEK_API_KEY=你的DeepSeek_API密钥
 
 # 邮件提醒配置（用于 Vercel Functions）
@@ -328,7 +349,7 @@ CRON_SECRET=随机生成的密钥
 
 **获取方式：**
 - Supabase: 访问 [supabase.com](https://supabase.com/) 创建项目
-- DeepSeek: 访问 [platform.deepseek.com](https://platform.deepseek.com/) 获取 API Key
+- DeepSeek: 访问 [platform.deepseek.com](https://platform.deepseek.com/) 获取 API Key（当前使用 Qwen-3.5-plus 模型，详见 [官方API配置说明](./docs/setup/官方API配置说明.md)）
 - Resend: 访问 [resend.com](https://resend.com/) 注册并获取 API Key
 - CRON_SECRET: 使用 `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` 生成
 
@@ -339,8 +360,10 @@ CRON_SECRET=随机生成的密钥
 ```bash
 database/schema.sql                    # 主数据表
 database/admin_schema.sql              # 管理员相关表
+database/system_configs_table.sql      # 系统配置表
 database/migrations/add_goal_nature.sql     # 目标性质字段
 database/migrations/add_countdowns.sql      # 倒数日功能
+database/migrations/add_quotes_table.sql    # 名言警句功能
 ```
 
 ### 5. 配置管理员
@@ -382,9 +405,14 @@ npm run build
 ├── database/                    # 数据库相关
 │   ├── schema.sql              # 主数据表结构
 │   ├── admin_schema.sql        # 管理员表结构
+│   ├── system_configs_table.sql # 系统配置表
 │   └── migrations/             # 数据库迁移脚本
 │       ├── add_goal_nature.sql
-│       └── add_countdowns.sql
+│       ├── add_countdowns.sql
+│       ├── add_quotes_table.sql          # 名言警句表
+│       ├── remove_unique_constraint_for_cumulative_checkins.sql
+│       ├── add_blog_tables.sql           # 博客表
+│       └── convert_blog_to_community.sql # 博客转社区
 ├── src/
 │   ├── assets/                 # 静态资源
 │   │   └── styles/
@@ -395,11 +423,19 @@ npm run build
 │   │   ├── CheckInHistory.vue  # 打卡历史
 │   │   ├── HeatmapCalendar.vue # 热力图日历
 │   │   ├── CountdownCard.vue   # 倒数日卡片
+│   │   ├── QuoteCard.vue       # 名言警句卡片
+│   │   ├── ConfirmModal.vue    # 确认弹窗
+│   │   ├── DailyTrendChart.vue # 每日趋势图
+│   │   ├── CircularProgress.vue # 环形进度条
 │   │   ├── RichNoteEditor.vue  # 富文本编辑器
-│   │   └── QuickInputModal.vue # 快速输入模态框
+│   │   ├── QuickInputModal.vue # 快速输入模态框
+│   │   └── ToastContainer.vue  # Toast 通知容器
+│   ├── composables/            # 组合式函数
+│   │   └── useMaintenance.js   # 维护模式逻辑
 │   ├── config/                 # 配置文件
 │   │   ├── supabase.js         # Supabase 配置
-│   │   └── deepseek.js         # DeepSeek API 配置
+│   │   ├── deepseek.js         # DeepSeek API 配置
+│   │   └── deepseek-continue.js # DeepSeek 续写配置
 │   ├── layouts/                # 布局组件
 │   │   ├── MainLayout.vue      # 主布局
 │   │   └── AdminLayout.vue     # 管理员布局
@@ -411,16 +447,26 @@ npm run build
 │   │   ├── checkins.js         # 打卡记录
 │   │   ├── ideas.js            # 想法收集箱
 │   │   ├── countdowns.js       # 倒数日管理
+│   │   ├── quotes.js           # 名言警句
+│   │   ├── theme.js            # 主题切换
+│   │   ├── toast.js            # Toast 通知
 │   │   └── admin.js            # 管理员功能
 │   ├── utils/                  # 工具函数
-│   │   └── export.js           # 数据导出
+│   │   ├── export.js           # 数据导出
+│   │   └── echarts.js          # ECharts 配置
 │   ├── views/                  # 页面组件
+│   │   ├── HomeView.vue        # 首页
+│   │   ├── MaintenanceView.vue # 维护模式页面
 │   │   ├── auth/               # 认证页面
 │   │   │   └── LoginView.vue
 │   │   ├── goals/              # 目标相关页面
 │   │   │   ├── GoalsView.vue       # 目标列表
 │   │   │   ├── CreateGoalView.vue  # 创建目标
 │   │   │   └── GoalDetailView.vue  # 目标详情
+│   │   ├── settings/           # 设置页面
+│   │   │   ├── AccountSettings.vue  # 账户设置
+│   │   │   ├── FeatureSettings.vue  # 功能设置
+│   │   │   └── SystemSettings.vue   # 系统设置
 │   │   ├── admin/              # 管理员页面
 │   │   │   ├── DashboardView.vue
 │   │   │   ├── UsersView.vue
@@ -493,6 +539,7 @@ npm run build
 - [项目结构说明](./docs/PROJECT_STRUCTURE.md)
 
 ### 🔧 配置文档
+- [官方API配置说明](./docs/setup/官方API配置说明.md)
 - [邮件提醒配置指南](./docs/setup/EMAIL_REMINDER_SETUP.md)
 - [GitHub Actions 配置](./docs/setup/GITHUB_ACTIONS_SETUP.md)
 - [管理员设置](./docs/setup/ADMIN_SETUP.md)
@@ -501,14 +548,15 @@ npm run build
 ### ✨ 功能文档
 - [目标性质功能说明](./docs/features/目标性质功能说明.md)
 - [倒数日功能说明](./docs/features/倒数日功能说明.md)
+- [倒数日AI识别功能说明](./docs/features/倒数日AI识别功能说明.md)
+- [名言警句功能说明](./docs/features/名言警句功能说明.md)
 
 ### 🚀 部署文档
 - [部署指南](./docs/deployment/DEPLOYMENT_GUIDE.md)
 - [部署检查清单](./docs/deployment/deploy-checklist.md)
 
 ### 📡 API文档
-- [API测试说明](./docs/api/API测试说明.md)
-- [Ollama API修复说明](./docs/api/Ollama_API修复说明.md)
+- [官方API配置说明](./docs/setup/官方API配置说明.md)
 
 ---
 
@@ -529,7 +577,7 @@ npm run build
 - GitHub Pages
 - 自建服务器
 
-详细部署步骤请参考 [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)
+详细部署步骤请参考 [DEPLOYMENT_GUIDE.md](./docs/deployment/DEPLOYMENT_GUIDE.md)
 
 ---
 
@@ -562,7 +610,7 @@ npm run build
 - [Vue.js](https://vuejs.org/) - 渐进式 JavaScript 框架
 - [Supabase](https://supabase.com/) - 开源的 Firebase 替代方案
 - [Tailwind CSS](https://tailwindcss.com/) - 实用优先的 CSS 框架
-- [DeepSeek](https://www.deepseek.com/) - 强大的 AI 能力支持
+- [DeepSeek](https://www.deepseek.com/) - AI 能力支持（当前使用 Qwen-3.5-plus 模型）
 - [ECharts](https://echarts.apache.org/) - 专业的数据可视化库
 
 ---
