@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+  
+  body {
+    @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased;
+  }
+}
+
+@layer components {
+  /* 按钮样式 */
+  .btn {
+    @apply px-4 py-2 rounded font-medium transition-all duration-200 
+           focus:outline-none focus:ring-2 focus:ring-offset-2 text-sm shadow-sm border border-transparent;
+  }
+  
+  .btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700 
+           focus:ring-primary-500 active:bg-primary-800 shadow-sm;
+  }
+  
+  .btn-secondary {
+    @apply bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600
+           hover:bg-gray-50 dark:hover:bg-gray-700 
+           focus:ring-gray-400 active:bg-gray-100 dark:active:bg-gray-700 shadow-sm;
+  }
+  
+  .btn-success {
+    @apply bg-success text-white hover:bg-green-600 
+           focus:ring-green-500 active:bg-green-700 shadow-sm;
+  }
+  
+  .btn-danger {
+    @apply bg-danger text-white hover:bg-red-600 
+           focus:ring-red-500 active:bg-red-700 shadow-sm;
+  }
+  
+  .btn-ghost {
+    @apply bg-transparent text-gray-700 dark:text-gray-300 
+           hover:bg-gray-100 dark:hover:bg-gray-800 
+           focus:ring-gray-300 shadow-none border-none;
+  }
+  
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs;
+  }
+  
+  .btn-lg {
+    @apply px-6 py-3 text-base;
+  }
+  
+  /* 输入框样式 */
+  .input {
+    @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded 
+           bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm
+           focus:outline-none focus:ring-1 focus:ring-primary-500 
+           focus:border-primary-500 transition-all duration-200 shadow-sm placeholder-gray-400;
+  }
+  
+  .input-error {
+    @apply border-danger focus:ring-danger;
+  }
+  
+  /* 卡片样式 */
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded shadow-sm 
+           border border-gray-200 dark:border-gray-700;
+  }
+
+  .card-header {
+    @apply px-6 py-4 border-b border-gray-200 dark:border-gray-700 font-medium text-gray-900 dark:text-gray-100;
+  }
+  
+  .card-body {
+    @apply px-6 py-4;
+  }
+  
+  .card-footer {
+    @apply px-6 py-4 border-t border-gray-200 dark:border-gray-700 
+           bg-gray-50 dark:bg-gray-900 rounded-b;
+  }
+  
+  /* 进度条样式 */
+  .progress {
+    @apply w-full h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden;
+  }
+  
+  .progress-bar {
+    @apply h-full bg-primary-600 transition-all duration-300;
+  }
+  
+  /* 标签样式 */
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border;
+  }
+  
+  .badge-primary {
+    @apply bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 border-primary-200 dark:border-primary-800;
+  }
+  
+  .badge-success {
+    @apply bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 border-green-200 dark:border-green-800;
+  }
+  
+  .badge-warning {
+    @apply bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800;
+  }
+  
+  .badge-danger {
+    @apply bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800;
+  }
+  
+  .badge-gray {
+    @apply bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700;
+  }
+  
+  /* 分隔线 */
+  .divider {
+    @apply border-t border-gray-200 dark:border-gray-700 my-6;
+  }
+  
+  /* 页面标题 */
+  .page-title {
+    @apply text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-6 tracking-tight;
+  }
+  
+  .section-title {
+    @apply text-lg font-medium text-gray-900 dark:text-gray-100 mb-4 tracking-tight;
+  }
+  
+  /* 滚动条美化 */
+  .custom-scrollbar::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-gray-800 rounded-full;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600 rounded-full hover:bg-gray-400 dark:hover:bg-gray-500;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .glass {
+    @apply bg-white/80 dark:bg-gray-800/80 backdrop-blur-md;
+  }
+}
+
