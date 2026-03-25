@@ -12,7 +12,7 @@
 > 
 > PS：作者也也有了解到有了更多的优秀的框架，比提示词工程要更加优秀，比如Langchain等，之后会不断进行迭代的，但是我还是把这个有点简陋的版本放出来了，因为这个是我们最基础的提示词工程，这个项目的存在，或许可以帮助我们更改地理解别人优秀的框架，到底解决了什么问题，我们自己写的简陋的工程为什么不行，让自己的学习有 [迭代] 的过程，所以我觉得也是十分有意义的。
 >
-> 欢迎访问星煜凡程主站尝试：goals.wyhef.cloud
+> 欢迎访问星煜凡程主站尝试：https://goals.wyhef.cloud
 >
 > 欢迎给作者提交issue或邮件：wyf1992570@163.com
 
@@ -66,9 +66,10 @@
   - 接入 Qwen-3.5-plus AI，智能分析目标可行性
   - 自动拆解为周计划和日计划
   - 根据目标类型生成定制化任务清单
+   ![6faf3e92-3d79-4f2c-94e2-7c4fb85c85e5](https://cdn.jsdelivr.net/gh/WYHEF/my_images/img/20260325163238182.png)
 
 
-![6faf3e92-3d79-4f2c-94e2-7c4fb85c85e5](https://cdn.jsdelivr.net/gh/WYHEF/my_images/img/20260325163238182.png)
+
 
 - **确认和修改最终计划**
 ![image-20260325163423239](https://cdn.jsdelivr.net/gh/WYHEF/my_images/img/20260325163423492.png)
@@ -92,7 +93,7 @@
 
 - 附件上传（图片、文件）
 
-  ![image-20260325173654503](https://cdn.jsdelivr.net/gh/WYHEF/my_images/img/20260325173654690.png)
+  <img src="https://cdn.jsdelivr.net/gh/WYHEF/my_images/img/20260325173654690.png" alt="image-20260325173654503" style="width:55%;" />
 
 #### 健康类打卡（支持累计）
 
@@ -104,7 +105,7 @@
 
 - **体重管理**：体重变化趋势追踪
 
-  ![image-20260325173720014](https://cdn.jsdelivr.net/gh/WYHEF/my_images/img/20260325173720196.png)
+  <img src="https://cdn.jsdelivr.net/gh/WYHEF/my_images/img/20260325173720196.png" alt="image-20260325173720014" style="width:55%;" />
 
 ### 📈 数据可视化
 
@@ -173,7 +174,7 @@
   
   - 填入信息，AI自动提取倒数日标题、日程信息、截止时间、倒数日性质等
   
-    ![image-20260325164621671](https://cdn.jsdelivr.net/gh/WYHEF/my_images/img/20260325164621858.png)
+    <img src="https://cdn.jsdelivr.net/gh/WYHEF/my_images/img/20260325164621858.png" alt="image-20260325164621671" style="width:55%;" />
   
 - **美观的卡片展示**
 
@@ -257,14 +258,11 @@
   - 主题偏好自动保存
   - 全局统一的视觉体验
   - 保护眼睛，适合夜间使用
-
 - **完整的深色适配**
   - 所有页面完美支持深色模式
   - 卡片、按钮、输入框等组件全面适配
   - 保持良好的对比度和可读性
   - 平滑的主题切换动画
-
-- 
 
 ---
 
