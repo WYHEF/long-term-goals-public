@@ -1,6 +1,6 @@
 // 测试邮件提醒功能
-const CRON_SECRET = '93b01ffb3e4a18ba56396d25ddffbbcf6ec037ebf063a02fe7f24b36c6fdb5cf'
-const API_URL = 'https://goals.wyhef.cloud/api/cron/send-reminders'
+const CRON_SECRET = 'your-cron-secret-here'
+const API_URL = 'https://your-domain.com/api/cron/send-reminders'
 
 console.log('🧪 开始测试邮件提醒功能...\n')
 
