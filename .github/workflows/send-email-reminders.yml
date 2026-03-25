@@ -1,16 +1,16 @@
 name: 发送邮件提醒
 
-on:
-  schedule:
-    # 每天 UTC 0:00 (北京时间 8:00) - 提前1小时应对GitHub Actions延迟
-    - cron: '0 0 * * *'
-    # 每天 UTC 12:00 (北京时间 20:00) - 提前1小时应对GitHub Actions延迟
-    - cron: '0 12 * * *'
-    # 每天 UTC 14:00 (北京时间 22:00) - 提前1小时应对GitHub Actions延迟
-    - cron: '0 14 * * *'
+# on:
+#   schedule:
+#     # 每天 UTC 0:00 (北京时间 8:00) - 提前1小时应对GitHub Actions延迟
+#     - cron: '0 0 * * *'
+#     # 每天 UTC 12:00 (北京时间 20:00) - 提前1小时应对GitHub Actions延迟
+#     - cron: '0 12 * * *'
+#     # 每天 UTC 14:00 (北京时间 22:00) - 提前1小时应对GitHub Actions延迟
+#     - cron: '0 14 * * *'
   
-  # 允许手动触发（用于测试）
-  workflow_dispatch:
+#   # 允许手动触发（用于测试）
+#   workflow_dispatch:
 
 jobs:
   send-reminders:
